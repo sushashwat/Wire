@@ -30,6 +30,12 @@ app.set('io', io);
 
 app.use('/api/messages', messageRoutes);
 
+// Lightweight ping routes for uptime monitors (e.g. UptimeRobot) that
+// keep the free-tier Render instance from spinning down on inactivity.
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', service: 'wire-chat-backend' });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
