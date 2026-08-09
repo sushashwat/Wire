@@ -12,6 +12,8 @@ export default function ChatWindow({ username, onLogout }) {
   const [typingUsers, setTypingUsers] = useState([]);
   const [connError, setConnError] = useState('');
   const [loadingHistory, setLoadingHistory] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showUserPanel, setShowUserPanel] = useState(false);
 
   // Load chat history over REST so messages survive a refresh,
   // then open the socket for real-time updates.
@@ -104,7 +106,15 @@ export default function ChatWindow({ username, onLogout }) {
 
   return (
     <div className="chat-app">
-      <UserList users={onlineUsers} currentUser={username} />
+      <UserList
+        users={onlineUsers}
+        currentUser={username}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
+      {sidebarOpen && (
+        <div className="sidebar-backdrop" onClick={() => setSidebarOpen(false)} />
+      )}
 
       <div className="chat-main">
         <header className="chat-header">
@@ -112,9 +122,19 @@ export default function ChatWindow({ username, onLogout }) {
             <span className="pulse-dot" />
             <h2>#general</h2>
           </div>
-          <button className="logout-btn" onClick={onLogout}>
-            {username} · leave
-          </button>
+          <div className="chat-header-actions">
+            <button
+              className="mobile-online-toggle"
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Show online users"
+            >
+              <span className="status-dot online" />
+              {onlineUsers.length} online
+            </button>
+            <button className="logout-btn" onClick={onLogout}>
+              {username} · leave
+            </button>
+          </div>
         </header>
 
         {connError && <div className="banner-error">{connError}</div>}

@@ -1,11 +1,16 @@
 import React from 'react';
 
-export default function UserList({ users, currentUser }) {
+export default function UserList({ users, currentUser, isOpen, onClose }) {
   return (
-    <aside className="user-list">
+    <aside className={`user-list ${isOpen ? 'open' : ''}`}>
       <div className="user-list-header">
         <span className="user-list-title">Online</span>
         <span className="user-list-count">{users.length}</span>
+        {onClose && (
+          <button className="sidebar-close" onClick={onClose} aria-label="Close">
+            ×
+          </button>
+        )}
       </div>
       <ul>
         {users.map((u) => (

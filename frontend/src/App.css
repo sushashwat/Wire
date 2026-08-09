@@ -19,9 +19,7 @@
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
+html, body, #root {
   height: 100%;
   margin: 0;
 }
@@ -33,8 +31,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-button,
-input {
+button, input {
   font-family: inherit;
 }
 
@@ -224,15 +221,8 @@ input {
 }
 
 @keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.4;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 .chat-main {
@@ -261,6 +251,42 @@ input {
   font-family: var(--font-display);
   font-size: 17px;
   margin: 0;
+}
+
+.chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-online-toggle {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-sunken);
+  color: var(--text);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.sidebar-close {
+  display: none;
+  margin-left: auto;
+  border: none;
+  background: none;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.sidebar-backdrop {
+  display: none;
 }
 
 .logout-btn {
@@ -385,11 +411,9 @@ input {
 .message-row.other .message-bubble {
   border-bottom-left-radius: 6px;
 }
-
 .message-row.other.grouped-bottom .message-bubble {
   border-bottom-left-radius: 18px;
 }
-
 .message-row.other.grouped-top .message-bubble {
   border-top-left-radius: 18px;
 }
@@ -400,7 +424,6 @@ input {
   color: #fff;
   border-bottom-right-radius: 6px;
 }
-
 .message-row.own.grouped-bottom .message-bubble {
   border-bottom-right-radius: 18px;
 }
@@ -459,27 +482,12 @@ input {
   animation: typingBounce 1.2s infinite ease-in-out;
 }
 
-.typing-dots i:nth-child(2) {
-  animation-delay: 0.15s;
-}
-
-.typing-dots i:nth-child(3) {
-  animation-delay: 0.3s;
-}
+.typing-dots i:nth-child(2) { animation-delay: 0.15s; }
+.typing-dots i:nth-child(3) { animation-delay: 0.3s; }
 
 @keyframes typingBounce {
-
-  0%,
-  60%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.5;
-  }
-
-  30% {
-    transform: translateY(-3px);
-    opacity: 1;
-  }
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-3px); opacity: 1; }
 }
 
 .message-input {
@@ -532,7 +540,36 @@ input {
   }
 
   .user-list {
-    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 78%;
+    max-width: 280px;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 12px 0 32px rgba(43, 27, 18, 0.18);
+  }
+
+  .user-list.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close {
+    display: block;
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(43, 27, 18, 0.35);
+    z-index: 40;
+  }
+
+  .mobile-online-toggle {
+    display: flex;
   }
 
   .message-bubble {
